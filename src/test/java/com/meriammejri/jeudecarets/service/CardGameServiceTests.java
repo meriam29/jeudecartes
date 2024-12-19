@@ -16,8 +16,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.when;
 
@@ -165,5 +164,29 @@ public class CardGameServiceTests {
         assertEquals(expectedSortedHand, result, "The result should correctly handle duplicate cards.");
     }
 
+    @Test
+    void testGenerateRandomHand_invalidInput_lessThanOne() {
+        int cardNumber = 0;
 
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> cardGameImpl.generateRandomHand(cardNumber),
+                "Expected IllegalArgumentException for input less than 1"
+        );
+
+        assertEquals("cardNumber must be between 1 and 52 inclusive.", exception.getMessage());
+    }
+
+    @Test
+    void testGenerateRandomHand_invalidInput_moreThanFiftyTwo() {
+        int cardNumber = 53;
+
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> cardGameImpl.generateRandomHand(cardNumber),
+                "Expected IllegalArgumentException for input greater than 52"
+        );
+
+        assertEquals("cardNumber must be between 1 and 52 inclusive.", exception.getMessage());
+    }
 }
