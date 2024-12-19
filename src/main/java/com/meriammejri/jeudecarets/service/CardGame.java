@@ -32,4 +32,12 @@ public interface CardGame {
      * @return List<Value>
      */
     List<Value> generateRandomValueOrder();
+
+    /**
+     * Generate a random hand of cards
+     *
+     * @param cardNumber
+     * @return
+     */
+    List<CardDto> generateRandomHand(int cardNumber);
 }

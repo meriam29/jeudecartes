@@ -19,6 +19,7 @@ import java.util.*;
 public class CardGameImpl implements CardGame {
 
     private final CardMapper cardMapper;
+    private final Random random = new Random();
 
     /**
      * Sort the hand based on custom order
@@ -74,5 +75,36 @@ public class CardGameImpl implements CardGame {
         List<Value> values = Arrays.asList(Value.values());
         Collections.shuffle(values);
         return values;
+    }
+
+    /**
+     * Generate a random hand of cards
+     *
+     * @param cardNumber
+     * @return
+     */
+    @Override
+    public List<CardDto> generateRandomHand(int cardNumber) {
+        // Validate input
+        if (cardNumber < 1 || cardNumber > 52) {
+            throw new IllegalArgumentException("cardNumber must be between 1 and 52 inclusive.");
+        }
+        // Create and shuffle the full cards
+        List<Card> fullCards = generateFullCards();
+        Collections.shuffle(fullCards);
+
+        // Pick the first cardNumber cards and map to DTO
+        return cardMapper.toCardDtoList(fullCards.subList(0, cardNumber));
+    }
+
+    private List<Card> generateFullCards() {
+
+        List<Card> fullCards = new ArrayList<>(52);
+        for (Color color : Color.values()) {
+            for (Value value : Value.values()) {
+                fullCards.add(new Card(color, value));
+            }
+        }
+        return fullCards;
     }
 }
