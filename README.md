@@ -54,8 +54,8 @@ To run this application, ensure the following are installed:
 ### 1. Clone the Repository
 
 ```bash
-git clone <repository-url>
-cd <repository-directory>
+git clone [<repository-url>](https://github.com/meriam29/jeudecartes)
+cd jeudecartes
 ```
 
 ### 2. Build the Application
